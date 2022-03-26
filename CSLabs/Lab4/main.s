@@ -5,7 +5,7 @@
 .equ PORTC, 0x08
 .org 0
 
-main :
+turnOn :
     ldi r16,0
     out SREG, r16
 
@@ -17,6 +17,10 @@ main :
     out PINC, r17
     out PORTC, r17
 
+    ldi r20, 255
+    rjmp loopB
+
+turnRecieved:
     ; Although can be intialized directly, it is just to keep them as a reference to indicate change
     ldi r16,0
     ldi r18,0
@@ -28,12 +32,22 @@ main :
     out DDRB, r16
     out PORTB, r16
 
-    cpi r16, 0x7
-    brlo branch
-
 mainloop: rjmp mainloop
 
-branch :
-    ldi r17, 0xf
-    out DDRB, r17
-    out PORTB, r17
+loopB:
+    nop
+
+    ldi r21, 255
+
+    dec r20
+
+    cpi r20, 0
+    brne turnRecieved
+    rjmp loopB
+
+loopA:
+    nop
+    dec r21
+    cpi r21, 0
+    brne loopA
+    rjmp loopB
