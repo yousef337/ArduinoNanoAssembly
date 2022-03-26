@@ -9,22 +9,8 @@ main :
     ldi r16,0
     out SREG, r16
 
-    ldi r17, 0xe
+    ldi r17, 0xf
     out DDRB, r17
     out PORTB, r17
-    
-    ldi r17, 0x70
-    out PINC, r17
-    out PORTC, r17
-
-    ldi r16,0
-    ldi r18,0
-    
-    ldi r16, 0xf
-    in r18, PINC
-    sub r16, PINC
-
-    out DDRB, r16
-    out PORTB, r16
 
 mainloop: rjmp mainloop
